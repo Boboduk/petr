@@ -1,0 +1,273 @@
+@import 'tailwindcss';
+
+/* ===== Дизайн-токены «Водовоз» =====
+ * Глубокий «водный» синий + аква-акцент, нейтральные холодные серые.
+ * Ассоциации: чистота, скорость, надёжность.
+ */
+@theme {
+  --font-sans: var(--font-manrope), ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+
+  --color-ink-950: #06111f;
+  --color-ink-900: #0a1a2f;
+  --color-ink-800: #15273f;
+  --color-ink-700: #24364f;
+  --color-ink-600: #3b4d66;
+  --color-ink-500: #5b6b82;
+  --color-ink-400: #8a98ac;
+  --color-ink-300: #b7c2d1;
+  --color-ink-200: #dce4ee;
+  --color-ink-100: #edf2f8;
+  --color-ink-50: #f5f8fc;
+
+  --color-brand-50: #eef5ff;
+  --color-brand-100: #d9e8ff;
+  --color-brand-200: #b6d2ff;
+  --color-brand-300: #84b3ff;
+  --color-brand-400: #4c8dff;
+  --color-brand-500: #1f6bff;
+  --color-brand-600: #0b57e8;
+  --color-brand-700: #0a47bf;
+  --color-brand-800: #0d3b94;
+  --color-brand-900: #0f2f6e;
+
+  --color-aqua-50: #ecfdff;
+  --color-aqua-100: #d5f7fb;
+  --color-aqua-200: #a9eef7;
+  --color-aqua-400: #2dd4e8;
+  --color-aqua-500: #10b5d0;
+  --color-aqua-600: #0891ab;
+
+  --color-ok-50: #e8f8f0;
+  --color-ok-500: #12a26a;
+  --color-ok-600: #0b8a59;
+  --color-warn-50: #fff6e5;
+  --color-warn-500: #f59e0b;
+  --color-warn-600: #c97d04;
+  --color-bad-50: #fdeced;
+  --color-bad-500: #e5484d;
+  --color-bad-600: #c9353a;
+
+  --radius-4xl: 2rem;
+
+  --shadow-card: 0 1px 2px rgba(10, 26, 47, 0.04), 0 10px 30px -14px rgba(10, 26, 47, 0.16);
+  --shadow-float: 0 2px 6px rgba(10, 26, 47, 0.06), 0 24px 48px -20px rgba(10, 26, 47, 0.28);
+  --shadow-glow: 0 10px 30px -10px rgba(11, 87, 232, 0.55);
+
+  --animate-radar: radar 2.4s cubic-bezier(0.2, 0.6, 0.4, 1) infinite;
+  --animate-float: float 3s ease-in-out infinite;
+  --animate-fade-up: fade-up 0.35s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  --animate-sheet: sheet-up 0.32s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  --animate-wave: wave 6s linear infinite;
+  --animate-shimmer: shimmer 1.6s linear infinite;
+
+  @keyframes radar {
+    0% { transform: scale(0.2); opacity: 0.8; }
+    100% { transform: scale(1); opacity: 0; }
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-4px); }
+  }
+  @keyframes fade-up {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes sheet-up {
+    from { opacity: 0.6; transform: translateY(40px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes wave {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+  @keyframes shimmer {
+    from { background-position: -200% 0; }
+    to { background-position: 200% 0; }
+  }
+}
+
+:root {
+  color-scheme: light;
+}
+
+html,
+body {
+  background: #f1f5fa;
+  color: var(--color-ink-900);
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  min-height: 100dvh;
+}
+
+::selection {
+  background: var(--color-brand-100);
+}
+
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type='number'] {
+  -moz-appearance: textfield;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  scrollbar-width: none;
+}
+
+.tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+.shimmer {
+  background: linear-gradient(90deg, var(--color-ink-100) 0%, var(--color-ink-50) 50%, var(--color-ink-100) 100%);
+  background-size: 200% 100%;
+  animation: var(--animate-shimmer);
+}
+
+/* ===== Карта ===== */
+.leaflet-container {
+  font-family: inherit;
+  background: #e8eef5;
+}
+.leaflet-tile-pane {
+  filter: saturate(0.8) contrast(0.98);
+}
+.leaflet-control-attribution {
+  font-size: 10px !important;
+  background: rgba(255, 255, 255, 0.7) !important;
+  border-radius: 8px 0 0 0;
+}
+.leaflet-control-zoom {
+  border: none !important;
+  box-shadow: var(--shadow-card) !important;
+  border-radius: 14px !important;
+  overflow: hidden;
+}
+.leaflet-control-zoom a {
+  width: 36px !important;
+  height: 36px !important;
+  line-height: 36px !important;
+  color: var(--color-ink-700) !important;
+  border-color: var(--color-ink-100) !important;
+}
+.vv-marker {
+  background: transparent;
+  border: none;
+}
+.vv-truck {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: 0 6px 16px -6px rgba(10, 26, 47, 0.45);
+  border: 2px solid #fff;
+  transition: transform 0.2s;
+}
+.vv-truck.is-active {
+  background: var(--color-brand-600);
+  transform: scale(1.12);
+}
+.vv-truck.is-me {
+  background: var(--color-ink-900);
+}
+.vv-truck.is-busy {
+  opacity: 0.55;
+}
+.vv-tag {
+  position: absolute;
+  top: -24px;
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: var(--color-ink-900);
+  color: #fff;
+  box-shadow: 0 4px 10px -4px rgba(10, 26, 47, 0.5);
+}
+.vv-pin {
+  position: relative;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.vv-pin-core {
+  width: 22px;
+  height: 22px;
+  border-radius: 999px;
+  background: var(--color-brand-600);
+  border: 4px solid #fff;
+  box-shadow: 0 4px 12px -2px rgba(11, 87, 232, 0.6);
+  z-index: 2;
+}
+.vv-pin-pulse {
+  position: absolute;
+  inset: 0;
+  border-radius: 999px;
+  background: rgba(31, 107, 255, 0.35);
+  animation: var(--animate-radar);
+}
+.vv-order {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 9px 4px 5px;
+  border-radius: 999px;
+  background: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--color-ink-900);
+  white-space: nowrap;
+  box-shadow: 0 6px 16px -6px rgba(10, 26, 47, 0.45);
+  border: 2px solid #fff;
+}
+.vv-order .dot {
+  width: 20px;
+  height: 20px;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-aqua-500);
+  color: #fff;
+}
+.vv-order.is-active {
+  background: var(--color-brand-600);
+  color: #fff;
+}
+.vv-radar {
+  position: relative;
+  width: 360px;
+  height: 360px;
+  pointer-events: none;
+}
+.vv-radar span {
+  position: absolute;
+  inset: 0;
+  border-radius: 999px;
+  border: 2px solid rgba(31, 107, 255, 0.35);
+  background: radial-gradient(circle, rgba(31, 107, 255, 0.14) 0%, rgba(31, 107, 255, 0) 70%);
+  animation: var(--animate-radar);
+}
+.vv-radar span:nth-child(2) {
+  animation-delay: 0.8s;
+}
+.vv-radar span:nth-child(3) {
+  animation-delay: 1.6s;
+}
