@@ -1,0 +1,77 @@
+.section {
+  padding-block: var(--section-y);
+}
+
+.paper {
+  background: var(--c-paper);
+}
+
+.surface {
+  background: var(--c-surface);
+}
+
+.dark {
+  background: var(--c-ink-900);
+  color: var(--c-on-dark-muted);
+}
+
+.dark .title {
+  color: #fff;
+}
+
+.head {
+  max-width: 760px;
+  margin-bottom: clamp(36px, 4vw, 56px);
+}
+
+.center {
+  margin-inline: auto;
+  text-align: center;
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+  color: var(--c-brand-600);
+  font-size: var(--fs-xs);
+  font-weight: 650;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.eyebrow::before {
+  content: '';
+  width: 18px;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--c-accent-500);
+}
+
+.eyebrowInverse {
+  color: var(--c-brand-300);
+}
+
+.dark .eyebrow {
+  color: var(--c-brand-300);
+}
+
+.title {
+  font-size: var(--fs-h2);
+}
+
+.intro {
+  margin-top: 18px;
+  font-size: var(--fs-lead);
+  color: var(--c-ink-500);
+  max-width: 60ch;
+}
+
+.center .intro {
+  margin-inline: auto;
+}
+
+.dark .intro {
+  color: var(--c-on-dark-muted);
+}

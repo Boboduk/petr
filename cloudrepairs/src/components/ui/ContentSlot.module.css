@@ -1,0 +1,42 @@
+.slot {
+  display: flex;
+  gap: 18px;
+  align-items: flex-start;
+  padding: clamp(20px, 3vw, 32px);
+  border: 1.5px dashed var(--c-line-strong);
+  border-radius: var(--radius-l);
+  background: repeating-linear-gradient(-45deg, transparent 0 12px, rgb(11 22 38 / 0.018) 12px 24px), var(--c-surface);
+}
+
+.media {
+  min-height: 220px;
+  align-items: center;
+}
+
+.icon {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-m);
+  background: var(--c-brand-50);
+  color: var(--c-brand-600);
+}
+
+.title {
+  color: var(--c-ink-900);
+  font-weight: 600;
+}
+
+.text {
+  margin-top: 4px;
+  color: var(--c-ink-500);
+  max-width: 62ch;
+}
+
+.dev {
+  margin-top: 10px;
+  font-size: var(--fs-xs);
+  color: var(--c-ink-500);
+}

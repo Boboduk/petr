@@ -1,0 +1,29 @@
+.logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--c-ink-900);
+  font-weight: 700;
+  font-size: 1.1875rem;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.mark {
+  flex: none;
+  width: 32px;
+  height: 32px;
+}
+
+.accent {
+  color: var(--c-brand-600);
+}
+
+.inverse {
+  color: #fff;
+}
+
+.inverse .accent {
+  color: var(--c-brand-300);
+}

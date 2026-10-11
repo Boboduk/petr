@@ -1,0 +1,117 @@
+.wrap {
+  padding-block: clamp(56px, 7vw, 104px);
+}
+
+.band {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  gap: clamp(32px, 5vw, 72px);
+  align-items: center;
+  padding: clamp(32px, 5vw, 72px);
+  border-radius: var(--radius-xl);
+  background: linear-gradient(150deg, var(--c-brand-700), var(--c-ink-900) 70%);
+  color: var(--c-on-dark-muted);
+}
+
+.glow {
+  position: absolute;
+  z-index: -1;
+  right: -20%;
+  top: -40%;
+  width: 70%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgb(141 180 250 / 0.35), transparent 65%);
+}
+
+.title {
+  color: #fff;
+  font-size: var(--fs-h2);
+}
+
+.text {
+  margin-top: 20px;
+  max-width: 52ch;
+  font-size: var(--fs-lead);
+  line-height: 1.55;
+}
+
+.contacts {
+  display: grid;
+  gap: 12px;
+}
+
+.contact {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 18px;
+  border: 1px solid rgb(255 255 255 / 0.14);
+  border-radius: var(--radius-l);
+  background: rgb(255 255 255 / 0.05);
+  color: #fff;
+  text-decoration: none;
+  transition:
+    background-color var(--dur) var(--ease),
+    border-color var(--dur) var(--ease);
+}
+
+.contact:hover {
+  color: #fff;
+  background: rgb(255 255 255 / 0.1);
+  border-color: rgb(255 255 255 / 0.28);
+}
+
+.contact:focus-visible {
+  box-shadow: 0 0 0 3px var(--c-brand-300);
+}
+
+.icon {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  background: rgb(255 255 255 / 0.1);
+  color: var(--c-brand-200);
+}
+
+.contactBody {
+  display: grid;
+  min-width: 0;
+}
+
+.label {
+  color: var(--c-on-dark-muted);
+  font-size: var(--fs-xs);
+}
+
+.value {
+  font-size: clamp(1rem, 0.95rem + 0.4vw, 1.25rem);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  overflow-wrap: break-word;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+@media (max-width: 900px) {
+  .band {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 520px) {
+  .actions > * {
+    flex: 1 1 100%;
+  }
+}

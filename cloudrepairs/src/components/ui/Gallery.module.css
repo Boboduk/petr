@@ -1,0 +1,71 @@
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 240px), 1fr));
+  gap: 16px;
+  list-style: none;
+}
+
+.item {
+  margin: 0;
+}
+
+.trigger {
+  position: relative;
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 1px solid var(--c-line);
+  border-radius: var(--radius-m);
+  overflow: hidden;
+  background: var(--c-surface);
+  cursor: zoom-in;
+}
+
+.trigger img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  transition: transform 400ms var(--ease);
+}
+
+.trigger:hover img {
+  transform: scale(1.03);
+}
+
+.zoom {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: rgb(255 255 255 / 0.92);
+  color: var(--c-ink-900);
+  box-shadow: var(--shadow-1);
+  opacity: 0;
+  transform: translateY(4px);
+  transition:
+    opacity var(--dur) var(--ease),
+    transform var(--dur) var(--ease);
+}
+
+.trigger:hover .zoom,
+.trigger:focus-visible .zoom {
+  opacity: 1;
+  transform: none;
+}
+
+@media (hover: none) {
+  .zoom {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.caption {
+  margin-top: 10px;
+  font-size: var(--fs-small);
+  color: var(--c-ink-500);
+}

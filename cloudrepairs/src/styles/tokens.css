@@ -1,0 +1,83 @@
+/*
+ * Дизайн-токены CloudRepairs.
+ *
+ * Оригинальный логотип получить не удалось, поэтому палитра построена от
+ * названия сервиса и его предметной области: «облачный» синий как основной
+ * цвет, глубокий тёмно-синий для текста и тёмных секций, янтарный акцент —
+ * как цвет критического пути на диаграмме Ганта. После получения логотипа
+ * достаточно поправить переменные --c-brand-* и --c-accent-*.
+ */
+:root {
+  /* Нейтральные */
+  --c-ink-950: #070f1c;
+  --c-ink-900: #0b1626;
+  --c-ink-800: #132238;
+  --c-ink-700: #26364e;
+  --c-ink-600: #3d4d66;
+  --c-ink-500: #59697f;
+  --c-ink-400: #8493a8;
+  --c-line: #e2e7ef;
+  --c-line-strong: #cbd4e0;
+  --c-paper: #f4f6f9;
+  --c-surface: #ffffff;
+
+  /* Фирменный синий */
+  --c-brand-800: #123f93;
+  --c-brand-700: #174bb0;
+  --c-brand-600: #1f5fd6;
+  --c-brand-500: #3478f0;
+  --c-brand-300: #8db4fa;
+  --c-brand-200: #bcd3fc;
+  --c-brand-100: #dce8fd;
+  --c-brand-50: #eef4fe;
+
+  /* Акцент */
+  --c-accent-600: #d98a0b;
+  --c-accent-500: #f5a524;
+  --c-accent-100: #fdefd6;
+
+  /* На тёмном фоне */
+  --c-on-dark: #ffffff;
+  --c-on-dark-muted: rgb(255 255 255 / 0.68);
+  --c-on-dark-line: rgb(255 255 255 / 0.12);
+
+  /* Типографика */
+  --font-sans: 'Onest Variable', system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
+  --fs-display: clamp(2.125rem, 1.15rem + 3.6vw, 4rem);
+  --fs-h1: clamp(2.125rem, 1.4rem + 2.8vw, 3.5rem);
+  --fs-h2: clamp(1.75rem, 1.3rem + 1.6vw, 2.625rem);
+  --fs-h3: clamp(1.125rem, 1.05rem + 0.35vw, 1.3125rem);
+  --fs-lead: clamp(1.0625rem, 0.98rem + 0.4vw, 1.3125rem);
+  --fs-body: 1.0625rem;
+  --fs-small: 0.9375rem;
+  --fs-xs: 0.8125rem;
+  --lh-tight: 1.1;
+  --lh-snug: 1.3;
+  --lh-body: 1.62;
+  --measure: 68ch;
+
+  /* Форма */
+  --radius-s: 8px;
+  --radius-m: 12px;
+  --radius-l: 20px;
+  --radius-xl: 28px;
+
+  /* Ритм */
+  --container: 1240px;
+  --gutter: clamp(16px, 4vw, 40px);
+  --section-y: clamp(72px, 5rem + 3vw, 136px);
+  --header-h: 72px;
+
+  --shadow-1: 0 1px 2px rgb(11 22 38 / 0.05), 0 6px 20px rgb(11 22 38 / 0.06);
+  --shadow-2: 0 2px 6px rgb(11 22 38 / 0.08), 0 24px 60px rgb(11 22 38 / 0.18);
+  --focus-ring: 0 0 0 3px var(--c-surface), 0 0 0 5px var(--c-brand-500);
+
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --dur: 180ms;
+}
+
+@media (max-width: 760px) {
+  :root {
+    --header-h: 64px;
+  }
+}

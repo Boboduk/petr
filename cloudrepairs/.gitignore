@@ -1,0 +1,6 @@
+node_modules/
+dist/
+dist-ssr/
+import/
+*.tsbuildinfo
+.DS_Store
