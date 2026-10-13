@@ -21,9 +21,9 @@ export function ClientShell({ children }: { children: ReactNode }) {
   const pathname = usePathname();
   const { db, user } = useCurrentUser();
   const unread = user ? unreadCount(db, user.id) : 0;
-  const focusFlow = pathname.startsWith('/client/new') || pathname.startsWith('/client/order/');
+  const focusFlow = pathname.startsWith('/client/new') || pathname === '/client/order';
 
-  const isActive = (href: string, exact?: boolean) => (exact ? pathname === href : pathname.startsWith(href) || (href === '/client/orders' && pathname.startsWith('/client/order/')));
+  const isActive = (href: string, exact?: boolean) => (exact ? pathname === href : pathname.startsWith(href) || (href === '/client/orders' && pathname === '/client/order'));
 
   return (
     <div className="min-h-dvh lg:pl-[88px]">

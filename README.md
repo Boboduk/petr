@@ -61,13 +61,35 @@ npm start
 - **Живой водитель.** Пока открыта вкладка водителя, она шлёт «пульс», и его заказами управляет человек, а не симулятор. Когда вкладку закрывают, демо-водитель Алексей снова отвечает автоматически.
 - **Геокодер и маршруты** — демо-реализации без платных API (`lib/geo.ts`): адрес детерминированно превращается в точку внутри города, маршрут строится «по кварталам».
 
+## Android-приложение (APK)
+
+Приложение упаковано в нативную оболочку [Capacitor](https://capacitorjs.com): внутри APK лежит статическая сборка сайта, сервер не нужен. Всё работает офлайн, интернет нужен только для подложки карты. Данные хранятся на телефоне.
+
+**Готовый APK.** Его собирает GitHub Actions (`.github/workflows/android-apk.yml`) при каждом пуше и публикует в релиз `apk-latest`:
+`https://github.com/Boboduk/petr/releases/download/apk-latest/vodovoz-demo.apk`
+
+Установка: скачайте файл на телефон, откройте его и разрешите установку из этого источника (Android 7.0+). Новые сборки ставятся поверх старых: они подписаны одним демо-ключом `android/app/demo-debug.keystore`. Этот ключ только для тестов — для Google Play нужен собственный ключ.
+
+**Особенности приложения.** В нём нет вкладок браузера, поэтому роль переключается в профиле («Переключиться на водителя» / «на клиента»). Пока открыт интерфейс клиента, за водителей отвечает симулятор.
+
+**Собрать самостоятельно** (нужны Node.js 22+, JDK 21 и Android SDK, например из Android Studio):
+
+```bash
+npm install
+npm run build:android          # статическая сборка в out/ + синхронизация с android/
+cd android && ./gradlew assembleDebug
+# APK: android/app/build/outputs/apk/debug/app-debug.apk
+```
+
+Или откройте папку `android/` в Android Studio и нажмите Run. Статическую версию для любого веб-хостинга собирает `npm run build:web` (папка `out/`).
+
 ## Структура проекта
 
 ```text
 app/                      # маршруты Next.js (App Router)
   page.tsx                # лендинг + Demo Mode (вход в один клик)
   login/, register/       # вход, регистрация клиента/водителя, SMS-код (демо)
-  client/                 # интерфейс клиента
+  client/                 # интерфейс клиента (экран заказа: /client/order?id=…)
     page.tsx              #   главная: карта + «Куда доставить воду?»
     new/                  #   мастер заказа: Адрес → Объём → Время → Цена
     order/[id]/           #   поиск → предложения → выбор → трекинг → оценка
@@ -97,6 +119,9 @@ lib/
   geo.ts, pricing.ts, status.ts, format.ts, auth.ts, draft.ts
 types/index.ts            # доменные типы — контракт между UI и данными
 supabase/schema.sql       # готовая схема PostgreSQL/Supabase под эти типы
+android/                  # нативный Android-проект (Capacitor)
+capacitor.config.ts       # настройки Android-оболочки
+.github/workflows/        # сборка APK в GitHub Actions
 ```
 
 ## Реализованные функции
@@ -130,4 +155,4 @@ supabase/schema.sql       # готовая схема PostgreSQL/Supabase под
 
 ## Технологии
 
-Next.js 16 (App Router) · React 19 · TypeScript · Tailwind CSS 4 · Lucide Icons · Leaflet + react-leaflet + OpenStreetMap. Состояние — mock-бэкенд на `localStorage` за интерфейсом репозитория.
+Next.js 16 (App Router) · React 19 · TypeScript · Tailwind CSS 4 · Lucide Icons · Leaflet + react-leaflet + OpenStreetMap · Capacitor 8 (Android). Состояние — mock-бэкенд на `localStorage` за интерфейсом репозитория.

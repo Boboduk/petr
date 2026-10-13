@@ -1,8 +1,8 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { Suspense, useMemo, useState } from 'react';
 import Link from 'next/link';
-import { useParams, useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { ArrowLeft, ChevronDown, FastForward, PackageSearch } from 'lucide-react';
 import type { LatLng } from '@/types';
 import { MapView, type MapMarker } from '@/components/map/MapView';
@@ -35,8 +35,8 @@ import { cn } from '@/lib/cn';
 
 type Sort = 'price' | 'time' | 'rating';
 
-export default function ClientOrderPage() {
-  const { id } = useParams<{ id: string }>();
+function ClientOrderScreen() {
+  const id = useSearchParams().get('id') ?? undefined;
   const router = useRouter();
   const run = useAction();
   const { db, user } = useCurrentUser();
@@ -291,5 +291,13 @@ export default function ClientOrderPage() {
       {driver && <ChatSheet open={chatOpen} onClose={() => setChatOpen(false)} order={order} me="client" peerName={driver.name} peerColor={driver.avatarColor} />}
       {driver && <CallModal open={callOpen} onClose={() => setCallOpen(false)} name={driver.name} phone={driver.phone} color={driver.avatarColor} photo={driver.photo} />}
     </>
+  );
+}
+
+export default function ClientOrderPage() {
+  return (
+    <Suspense>
+      <ClientOrderScreen />
+    </Suspense>
   );
 }

@@ -10,6 +10,7 @@ import { useCurrentUser } from '@/hooks/useSession';
 import { orderEconomics } from '@/lib/pricing';
 import { formatDateTime, formatMoney, formatVolume } from '@/lib/format';
 import { shortAddress } from '@/lib/geo';
+import { driverOrderPath } from '@/lib/routes';
 
 export default function DriverHistoryPage() {
   const { db, driver } = useCurrentUser();
@@ -42,7 +43,7 @@ export default function DriverHistoryPage() {
         {orders.map((o) => {
           const e = orderEconomics(o.finalPrice ?? 0, o.commissionRate);
           return (
-            <Link key={o.id} href={`/driver/order/${o.id}`} className="flex items-center gap-3 rounded-3xl bg-white p-4 shadow-card transition hover:bg-ink-50">
+            <Link key={o.id} href={driverOrderPath(o.id)} className="flex items-center gap-3 rounded-3xl bg-white p-4 shadow-card transition hover:bg-ink-50">
               <div className="min-w-0 flex-1">
                 <div className="flex items-center gap-2">
                   <span className="font-bold text-ink-900">№{o.number}</span>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Фон адаптивной иконки «Водовоз»: аква → синий градиент -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
+    <gradient
+        android:angle="315"
+        android:startColor="#2DD4E8"
+        android:centerColor="#1F6BFF"
+        android:endColor="#0A47BF"
+        android:type="linear" />
+</shape>

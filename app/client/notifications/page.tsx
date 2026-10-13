@@ -6,6 +6,7 @@ import { NotificationsList } from '@/components/shared/NotificationsList';
 import { Button } from '@/components/ui/Button';
 import { useCurrentUser } from '@/hooks/useSession';
 import { markNotificationsRead } from '@/lib/store/actions';
+import { clientOrderPath } from '@/lib/routes';
 
 export default function ClientNotificationsPage() {
   const { db, user } = useCurrentUser();
@@ -31,7 +32,7 @@ export default function ClientNotificationsPage() {
         ) : undefined
       }
     >
-      <NotificationsList items={items} linkFor={(n) => (n.orderId ? `/client/order/${n.orderId}` : undefined)} />
+      <NotificationsList items={items} linkFor={(n) => (n.orderId ? clientOrderPath(n.orderId) : undefined)} />
     </PageScaffold>
   );
 }

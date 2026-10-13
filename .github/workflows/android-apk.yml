@@ -1,0 +1,71 @@
+# Сборка Android-приложения «Водовоз» (APK для тестирования).
+# Результат: артефакт сборки и релиз «apk-latest» с файлом vodovoz-demo.apk:
+# https://github.com/<owner>/<repo>/releases/download/apk-latest/vodovoz-demo.apk
+name: Android APK
+
+on:
+  push:
+    branches: ['claude/cool-hawking-wshh5w', 'main']
+    paths-ignore: ['**.md', 'docs/**', 'supabase/**']
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: android-apk-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  apk:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
+          cache: gradle
+
+      - name: Установка зависимостей
+        run: npm ci
+
+      - name: Статическая сборка и синхронизация с Android
+        run: npm run build:android
+
+      - name: Сборка APK
+        working-directory: android
+        env:
+          VERSION_CODE: ${{ github.run_number }}
+        run: |
+          chmod +x gradlew
+          ./gradlew assembleDebug --no-daemon --stacktrace
+
+      - name: Подготовка файла
+        run: |
+          cp android/app/build/outputs/apk/debug/app-debug.apk vodovoz-demo.apk
+          ls -lh vodovoz-demo.apk
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: vodovoz-demo-apk
+          path: vodovoz-demo.apk
+          retention-days: 30
+
+      - name: Публикация релиза apk-latest
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release delete apk-latest --yes --cleanup-tag || true
+          gh release create apk-latest vodovoz-demo.apk \
+            --target "${{ github.sha }}" \
+            --prerelease \
+            --title "Водовоз — тестовая сборка Android (№${{ github.run_number }})" \
+            --notes "Демо-версия для тестирования. Установка: скачайте vodovoz-demo.apk на телефон, откройте файл и разрешите установку из этого источника. Тестовые входы: demo@client.ru / demo@driver.ru / demo@admin.ru, пароль demo123. Коммит: ${{ github.sha }}"

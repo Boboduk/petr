@@ -1,8 +1,8 @@
 'use client';
 
-import { useState } from 'react';
+import { Suspense, useState } from 'react';
 import Link from 'next/link';
-import { useParams, useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { ArrowLeft, CheckCircle2, Droplets, MapPin, MessageCircle, MessageSquareText, Navigation, Phone, Radar, XCircle } from 'lucide-react';
 import type { LatLng } from '@/types';
 import { MapView, type MapMarker } from '@/components/map/MapView';
@@ -34,8 +34,8 @@ const ACTION: Record<string, { label: string; hint: string }> = {
   delivering: { label: 'Завершить доставку', hint: 'Нажмите после того, как вода залита' },
 };
 
-export default function DriverOrderPage() {
-  const { id } = useParams<{ id: string }>();
+function DriverOrderScreen() {
+  const id = useSearchParams().get('id');
   const router = useRouter();
   const run = useAction();
   const toast = useToast();
@@ -48,7 +48,7 @@ export default function DriverOrderPage() {
 
   if (!driver) return null;
   const active = driverActiveOrder(db, driver.id);
-  const order = id === 'none' ? active : findOrder(db, id);
+  const order = id ? findOrder(db, id) : active;
 
   if (!order || order.driverId !== driver.id) {
     return (
@@ -252,5 +252,13 @@ export default function DriverOrderPage() {
         }}
       />
     </>
+  );
+}
+
+export default function DriverOrderPage() {
+  return (
+    <Suspense>
+      <DriverOrderScreen />
+    </Suspense>
   );
 }

@@ -6,6 +6,7 @@ import { NotificationsList } from '@/components/shared/NotificationsList';
 import { Button } from '@/components/ui/Button';
 import { useCurrentUser } from '@/hooks/useSession';
 import { markNotificationsRead } from '@/lib/store/actions';
+import { driverOrderPath } from '@/lib/routes';
 
 export default function DriverNotificationsPage() {
   const { db, user } = useCurrentUser();
@@ -29,7 +30,7 @@ export default function DriverNotificationsPage() {
         ) : undefined
       }
     >
-      <NotificationsList items={items} linkFor={(n) => (n.orderId ? (n.kind === 'new_order' ? '/driver' : `/driver/order/${n.orderId}`) : undefined)} />
+      <NotificationsList items={items} linkFor={(n) => (n.orderId ? (n.kind === 'new_order' ? '/driver' : driverOrderPath(n.orderId)) : undefined)} />
     </PageScaffold>
   );
 }

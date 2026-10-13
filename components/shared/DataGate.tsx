@@ -6,7 +6,7 @@ import { useDBMaybe } from '@/hooks/useDB';
 import { useSession } from '@/hooks/useSession';
 import { LogoMark } from '@/components/brand/Logo';
 import { findUser } from '@/lib/store/selectors';
-import { logout } from '@/lib/auth';
+import { homePath, logout } from '@/lib/auth';
 import type { Role } from '@/types';
 
 export function Splash() {
@@ -31,12 +31,12 @@ export function DataGate({ role, children }: { role?: Role; children: ReactNode 
   const allowed = !role || (session?.role === role && !!user && !user.blocked);
 
   useEffect(() => {
-    if (!db || !role) return;
-    if (!allowed) {
-      if (user?.blocked) logout();
-      router.replace(`/login?role=${role}`);
-    }
-  }, [db, role, allowed, user, router]);
+    if (!db || !role || allowed) return;
+    if (user?.blocked) logout();
+    // вошли под другой ролью (например, переключение в демо) — ведём на её главный экран
+    if (session && user && !user.blocked && session.role !== role) router.replace(homePath(session.role));
+    else router.replace(`/login?role=${role}`);
+  }, [db, role, allowed, user, session, router]);
 
   if (!db || !allowed) return <Splash />;
   return <>{children}</>;

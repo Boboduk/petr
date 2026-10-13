@@ -7,6 +7,7 @@ import { useEngine } from '@/hooks/useEngine';
 import { useDBMaybe } from '@/hooks/useDB';
 import { useSession } from '@/hooks/useSession';
 import type { AppNotification, Role } from '@/types';
+import { clientOrderPath, driverOrderPath } from '@/lib/routes';
 
 function EngineRunner() {
   useEngine();
@@ -15,8 +16,8 @@ function EngineRunner() {
 
 function notificationLink(n: AppNotification, role: Role): string | undefined {
   if (!n.orderId) return undefined;
-  if (role === 'client') return `/client/order/${n.orderId}`;
-  if (role === 'driver') return n.kind === 'new_order' ? '/driver' : `/driver/order/${n.orderId}`;
+  if (role === 'client') return clientOrderPath(n.orderId);
+  if (role === 'driver') return n.kind === 'new_order' ? '/driver' : driverOrderPath(n.orderId);
   return `/admin/orders?id=${n.orderId}`;
 }
 
@@ -43,7 +44,7 @@ function NotificationToaster() {
       seen.current.add(n.id);
       if (Date.now() - n.createdAt > 15_000) continue;
       // пользователь уже смотрит на этот заказ — экран обновится сам
-      if (n.orderId && pathname.includes(n.orderId)) continue;
+      if (n.orderId && window.location.href.includes(n.orderId)) continue;
       const link = notificationLink(n, session.role);
       toast.show({ kind: n.kind === 'cancelled' ? 'error' : n.kind === 'completed' ? 'success' : 'info', title: n.title, body: n.body, onClick: link ? () => router.push(link) : undefined });
     }

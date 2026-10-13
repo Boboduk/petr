@@ -26,6 +26,7 @@ import { priceRange, recommendedPrice } from '@/lib/pricing';
 import { FREQUENCY_LABEL, SCHEDULE_LABEL, WATER_TYPE_FULL, WEEKDAYS } from '@/lib/status';
 import { formatDateTime, formatMoney, formatVolume } from '@/lib/format';
 import { cn } from '@/lib/cn';
+import { clientOrderPath } from '@/lib/routes';
 
 const COMMENT_TAGS = ['Нужен длинный шланг', 'Подъезд к дому возможен', 'Позвоните за 10 минут', 'Ёмкость во дворе'];
 
@@ -114,7 +115,7 @@ function Wizard() {
     if (order) {
       clearDraft();
       saveDraft({ ...loadDraft(), address: g.address, location: g.location, volume: draft.volume });
-      router.replace(`/client/order/${order.id}`);
+      router.replace(clientOrderPath(order.id));
     }
   };
 

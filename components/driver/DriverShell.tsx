@@ -9,6 +9,7 @@ import { useCurrentUser } from '@/hooks/useSession';
 import { useDriverHeartbeat } from '@/hooks/useDriverHeartbeat';
 import { driverActiveOrder } from '@/lib/store/selectors';
 import { cn } from '@/lib/cn';
+import { driverOrderPath } from '@/lib/routes';
 
 /** Оболочка водителя: отдельный интерфейс с тёмным акцентом */
 export function DriverShell({ children }: { children: ReactNode }) {
@@ -19,7 +20,7 @@ export function DriverShell({ children }: { children: ReactNode }) {
 
   const nav = [
     { href: '/driver', label: 'Заявки', icon: ListChecks, exact: true },
-    { href: active ? `/driver/order/${active.id}` : '/driver/order/none', label: 'Заказ', icon: Navigation, badge: !!active, match: '/driver/order' },
+    { href: driverOrderPath(active?.id), label: 'Заказ', icon: Navigation, badge: !!active, match: '/driver/order' },
     { href: '/driver/history', label: 'История', icon: History },
     { href: '/driver/profile', label: 'Профиль', icon: UserRound },
   ];

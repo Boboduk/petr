@@ -15,6 +15,7 @@ import { useDB } from '@/hooks/useDB';
 import { currentCity, dashboardStats } from '@/lib/store/selectors';
 import { formatMoney } from '@/lib/format';
 import type { Role } from '@/types';
+import { IS_NATIVE_APP } from '@/lib/platform';
 
 const ROLES: Array<{ role: Role; title: string; text: string; icon: typeof User; points: string[] }> = [
   {
@@ -166,15 +167,17 @@ function Landing() {
                   <Button block onClick={() => enter(role)}>
                     Войти
                   </Button>
-                  <a
-                    href={`/login?demo=${role}`}
-                    target="_blank"
-                    rel="noreferrer"
-                    title="Открыть в новой вкладке"
-                    className="flex size-11 shrink-0 items-center justify-center rounded-2xl bg-ink-100 text-ink-600 transition hover:bg-ink-200"
-                  >
-                    <ExternalLink className="size-4.5" />
-                  </a>
+                  {!IS_NATIVE_APP && (
+                    <a
+                      href={`/login?demo=${role}`}
+                      target="_blank"
+                      rel="noreferrer"
+                      title="Открыть в новой вкладке"
+                      className="flex size-11 shrink-0 items-center justify-center rounded-2xl bg-ink-100 text-ink-600 transition hover:bg-ink-200"
+                    >
+                      <ExternalLink className="size-4.5" />
+                    </a>
+                  )}
                 </div>
               </div>
             ))}
@@ -183,7 +186,15 @@ function Landing() {
           <div className="mt-5 flex items-start gap-3 rounded-2xl bg-aqua-50 p-4 text-sm text-ink-700">
             <Users className="mt-0.5 size-5 shrink-0 text-aqua-600" />
             <div>
-              <b>Совет для презентации:</b> откройте клиента и водителя в двух вкладках (кнопка <ExternalLink className="inline size-3.5" />) — заявка клиента появится у водителя, а его предложение цены — у клиента. Если вкладка водителя закрыта, демо-водители отвечают автоматически.
+              {IS_NATIVE_APP ? (
+                <>
+                  <b>Как тестировать:</b> войдите клиентом и закажите воду — демо-водители ответят сами. Чтобы попробовать роль водителя, в профиле нажмите «Переключиться на водителя». Данные хранятся на телефоне и работают без интернета (кроме подложки карты).
+                </>
+              ) : (
+                <>
+                  <b>Совет для презентации:</b> откройте клиента и водителя в двух вкладках (кнопка <ExternalLink className="inline size-3.5" />) — заявка клиента появится у водителя, а его предложение цены — у клиента. Если вкладка водителя закрыта, демо-водители отвечают автоматически.
+                </>
+              )}
             </div>
           </div>
         </section>

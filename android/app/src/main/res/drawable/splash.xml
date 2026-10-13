@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Заставка: светлый фон и логотип по центру (без растягивания на любых экранах) -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@color/vv_splash_background" />
+    <item>
+        <bitmap android:gravity="center" android:src="@drawable/splash_logo" />
+    </item>
+</layer-list>

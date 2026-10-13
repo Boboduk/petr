@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { ExternalLink, LogOut, Mail, Pencil, Phone, Repeat, RotateCcw, Trash2 } from 'lucide-react';
+import { LogOut, Mail, Pencil, Phone, Repeat, RotateCcw, Trash2 } from 'lucide-react';
 import { PageScaffold } from '@/components/client/ClientShell';
 import { CitySwitcher } from '@/components/shared/CitySwitcher';
 import { Avatar } from '@/components/ui/Avatar';
@@ -20,6 +20,7 @@ import { clientOrders } from '@/lib/store/selectors';
 import { formatDate, formatMoney, formatVolume } from '@/lib/format';
 import { shortAddress } from '@/lib/geo';
 import { FREQUENCY_LABEL, WATER_TYPE_LABEL, WEEKDAYS } from '@/lib/status';
+import { RoleSwitchRow } from '@/components/shared/RoleSwitch';
 
 export default function ClientProfilePage() {
   const router = useRouter();
@@ -105,9 +106,7 @@ export default function ClientProfilePage() {
       <div className="mt-6">
         <SectionTitle>Демо-режим</SectionTitle>
         <Card className="divide-y divide-ink-100">
-          <a href="/login?demo=driver" target="_blank" rel="noreferrer" className="flex items-center justify-between p-4 text-sm font-semibold text-ink-800 hover:bg-ink-50">
-            Открыть водителя в новой вкладке <ExternalLink className="size-4 text-ink-400" />
-          </a>
+          <RoleSwitchRow role="driver" />
           <button onClick={() => setResetOpen(true)} className="flex w-full items-center justify-between p-4 text-left text-sm font-semibold text-ink-800 hover:bg-ink-50">
             Сбросить демо-данные <RotateCcw className="size-4 text-ink-400" />
           </button>

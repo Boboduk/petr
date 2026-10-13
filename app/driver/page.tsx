@@ -22,6 +22,7 @@ import { makeOffer, setDriverOnline, withdrawOffer } from '@/lib/store/actions';
 import { orderEconomics } from '@/lib/pricing';
 import { formatMoney, formatVolume } from '@/lib/format';
 import { STATUS_LABEL } from '@/lib/status';
+import { driverOrderPath } from '@/lib/routes';
 
 function startOfDay() {
   const d = new Date();
@@ -92,7 +93,7 @@ export default function DriverHomePage() {
           <OnlineToggle online={driver.online} disabled={driver.blocked} onChange={(v) => run(() => setDriverOnline(driver.id, v), v ? 'Вы на линии' : 'Вы ушли с линии')} />
 
           {active && (
-            <Link href={`/driver/order/${active.id}`} className="flex items-center gap-3 rounded-3xl bg-ink-900 p-4 text-white shadow-float animate-fade-up">
+            <Link href={driverOrderPath(active.id)} className="flex items-center gap-3 rounded-3xl bg-ink-900 p-4 text-white shadow-float animate-fade-up">
               <span className="flex size-11 items-center justify-center rounded-2xl bg-aqua-500 text-ink-900">
                 <Radar className="size-5.5" />
               </span>

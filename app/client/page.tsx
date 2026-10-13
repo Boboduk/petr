@@ -22,6 +22,7 @@ import { geocode, reverseGeocode, shortAddress } from '@/lib/geo';
 import { isActive, STATUS_LABEL } from '@/lib/status';
 import { formatMinutes, formatVolume, pluralize } from '@/lib/format';
 import { cn } from '@/lib/cn';
+import { clientOrderPath } from '@/lib/routes';
 
 const MODES: Array<{ value: ScheduleType; title: string; text: string; icon: typeof Zap }> = [
   { value: 'now', title: 'Сейчас', text: 'Как можно скорее', icon: Zap },
@@ -97,7 +98,7 @@ export default function ClientHomePage() {
     >
       <div className="space-y-5 px-4 pb-6 pt-4 sm:px-5 lg:pt-6">
         {active && (
-          <Link href={`/client/order/${active.id}`} className="flex items-center gap-3 rounded-3xl bg-ink-900 p-4 text-white shadow-float animate-fade-up">
+          <Link href={clientOrderPath(active.id)} className="flex items-center gap-3 rounded-3xl bg-ink-900 p-4 text-white shadow-float animate-fade-up">
             <span className="relative flex size-11 shrink-0 items-center justify-center rounded-2xl bg-brand-600">
               <Truck className="size-5.5" />
               <span className="absolute -right-0.5 -top-0.5 size-3 animate-pulse rounded-full bg-aqua-400 ring-2 ring-ink-900" />

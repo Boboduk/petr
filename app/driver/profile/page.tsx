@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { BadgeCheck, Camera, Clock3, ExternalLink, FileCheck2, FileClock, LogOut, Pencil, Phone, Truck } from 'lucide-react';
+import { BadgeCheck, Camera, Clock3, FileCheck2, FileClock, LogOut, Pencil, Phone, Truck } from 'lucide-react';
 import { PageScaffold } from '@/components/client/ClientShell';
 import { TruckArt } from '@/components/brand/TruckArt';
 import { Avatar } from '@/components/ui/Avatar';
@@ -19,6 +19,7 @@ import { logout } from '@/lib/auth';
 import { updateDriver } from '@/lib/store/actions';
 import { readImageFile } from '@/lib/image';
 import { formatDate, formatVolume, maskPlate, pluralize } from '@/lib/format';
+import { RoleSwitchRow } from '@/components/shared/RoleSwitch';
 
 const VERIFICATION = {
   verified: { label: 'Проверен', tone: 'success' as const },
@@ -163,11 +164,9 @@ export default function DriverProfilePage() {
       </div>
 
       <Card className="mt-6 divide-y divide-ink-100">
-        <a href="/login?demo=client" target="_blank" rel="noreferrer" className="flex items-center justify-between p-4 text-sm font-semibold text-ink-800 hover:bg-ink-50">
-          Открыть клиента в новой вкладке <ExternalLink className="size-4 text-ink-400" />
-        </a>
+        <RoleSwitchRow role="client" />
         <div className="flex items-center gap-2 p-4 text-sm text-ink-500">
-          <BadgeCheck className="size-4 text-brand-600" /> Пока вкладка водителя открыта, вашими заказами управляете вы, а не симулятор.
+          <BadgeCheck className="size-4 text-brand-600" /> Пока открыт интерфейс водителя, вашими заказами управляете вы, а не симулятор.
         </div>
       </Card>
 

@@ -12,6 +12,7 @@ import { useCurrentUser } from '@/hooks/useSession';
 import { clientOrders, findDriver } from '@/lib/store/selectors';
 import { isActive } from '@/lib/status';
 import { formatMoney } from '@/lib/format';
+import { clientOrderPath } from '@/lib/routes';
 
 type Filter = 'all' | 'active' | 'completed' | 'cancelled';
 
@@ -49,7 +50,7 @@ export default function ClientOrdersPage() {
       ) : (
         <div className="grid gap-3 md:grid-cols-2">
           {list.map((o) => (
-            <OrderCard key={o.id} order={o} driver={findDriver(db, o.driverId)} href={`/client/order/${o.id}`} />
+            <OrderCard key={o.id} order={o} driver={findDriver(db, o.driverId)} href={clientOrderPath(o.id)} />
           ))}
         </div>
       )}
