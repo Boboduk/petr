@@ -14,6 +14,8 @@ const config: CapacitorConfig = {
     SystemBars: {
       insetsHandling: 'css',
       initialViewportFitValueHint: 'cover',
+      // интерфейс светлый: тёмные значки строки состояния даже при тёмной теме телефона
+      style: 'LIGHT',
     },
   },
 };
